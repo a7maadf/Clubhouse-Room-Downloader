@@ -14,7 +14,7 @@ folder_name = "ts_files"
 os.makedirs(folder_name, exist_ok=True)
 
 # Read the file and extract the links
-with open("vwvlvZm4", "r") as file:
+with open("_l5zRueGs", "r") as file:
     lines = file.readlines()
     ts_links = [line.strip() for line in lines if line.startswith("https://")]
 
@@ -46,7 +46,11 @@ print("Conversion completed successfully!")
 
 print("processing\ncombining all the ts files")
 os.chdir(folder_name)
-os.system('cat *.ts > all.ts')
+ts_files = sorted(os.listdir('.'), key=lambda x: int(x.split('segment')[1].split('.ts')[0]))
+with open('all.ts', 'wb') as outfile:
+    for fname in ts_files:
+        with open(fname, 'rb') as infile:
+            outfile.write(infile.read())
 print("done with the combining\nnow converting to mp3")
 random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=5))
 output_file = f'output-{random_string}.mp3'
